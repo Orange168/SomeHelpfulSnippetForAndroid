@@ -15,3 +15,18 @@
 
         return true;
     }
+// Custom ActionBar 
+//come from Android 20ui from com.example.android.donebar 
+// Show the custom action bar view and hide the normal Home icon and title. onCreate setting 
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(
+                ActionBar.DISPLAY_SHOW_CUSTOM,
+                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME
+                        | ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setCustomView(customActionBarView,
+                new ActionBar.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+        // END_INCLUDE (inflate_set_custom_view)
+
+        setContentView(R.layout.activity_done_bar);
