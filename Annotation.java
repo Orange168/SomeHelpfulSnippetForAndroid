@@ -1,3 +1,31 @@
+// sample for Annotation 
+/**
+ * Created by Administrator on 2015/3/21.
+ */
+@Documented
+@Target({TYPE, METHOD, CONSTRUCTOR}) @Retention(CLASS)
+public @interface ClassPreamble {
+    String author();
+    String date();
+    int currentRevision() default 1;
+    /**
+     * @deprecated use of open
+     * is discouraged, use
+     * openFrontDoor or
+     * openBackDoor instead.
+     */
+    @Deprecated
+    String lastModified() default "N/A";
+    String lastModifiedBy() default "N/A";
+    // Note use of array
+    String[] reviewers();
+
+}
+
+
+
+
+
 // get Annotation methds from android.view.ViewDebug.java
 private static HashMap<AccessibleObject, ExportedProperty> sAnnotations;
   methods = klass.getDeclaredMethods();
