@@ -1,4 +1,4 @@
-// One animator
+        // One animator
         int total = 5 ;
         int radius = 300 ;
         // calculate the translation X Y
@@ -41,14 +41,14 @@
         *  1. Bounce
         *  2. OverShoot
         *  3. Accelerator
-        *    ¡­¡­
+        *    Â¡Â­Â¡Â­
         * **/
         a1.setInterpolator(new BounceInterpolator());
         /*
         * ValueAnimator
         * 1, addUpdateListener ;
         * 2, TypeEvaluator
-        * 3, Generics TypeEvaluator<PointF> and public PointF evaluate(¡­¡­){¡­¡­}
+        * 3, Generics TypeEvaluator<PointF> and public PointF evaluate(Â¡Â­Â¡Â­){Â¡Â­Â¡Â­}
         * **/
         final Button button = new Button(this);
         ValueAnimator animator = ValueAnimator.ofInt(0, 100);
@@ -68,7 +68,21 @@
                 return null;
             }
         }) ;
-
+        a advance usage from filterMenus/FilterMenuLayout.java
+        //1. init
+        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), primaryColor, primaryDarkColor);
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                //3. use
+                primaryDarkPaint.setColor((Integer) animation.getAnimatedValue());
+            }
+        });
+        //2. set 
+        colorAnimator.setObjectValues(colorAnimator.getAnimatedValue() == null ? 
+                primaryColor : colorAnimator.getAnimatedValue(), primaryDarkColor);
+        colorAnimator.start();
+        
 advancedSample001 customized Propertyass
 MutableForegroundColorSpan.java
 
