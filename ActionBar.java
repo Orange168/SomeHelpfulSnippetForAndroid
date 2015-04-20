@@ -30,3 +30,35 @@
         // END_INCLUDE (inflate_set_custom_view)
 
         setContentView(R.layout.activity_done_bar);
+
+
+// navigation between App and app or in the app 
+ @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // This is called when the Home (Up) button is pressed in the action bar.
+                // Create a simple intent that starts the hierarchical parent activity and
+                // use NavUtils in the Support Package to ensure proper handling of Up.
+                Intent upIntent = new Intent(this, MainActivity.class);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    // This activity is not part of the application's task, so create a new task
+                    // with a synthesized back stack.
+                    TaskStackBuilder.from(this)
+                            // If there are ancestor activities, they should be added here.
+                            .addNextIntent(upIntent)
+                            .startActivities();
+                    finish();
+                } else {
+                    // This activity is part of the application's task, so simply
+                    // navigate up to the hierarchical parent activity.
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
