@@ -1,0 +1,11 @@
+1.在F:\sdk\sdk\platforms\android-14\data\res\drawable-xhdpi文件夹下，找到textfield_activated_holo_dark.9.png图片与textfield_default_holo_light.9.png
+2.在定义相应的样式如下：
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >  
+  
+    <item android:drawable="@drawable/textfield_activated_holo_dark" android:state_pressed= "true"/>  
+    <item android:drawable="@drawable/textfield_activated_holo_dark" android:state_focused= "true"/>  
+    <item android:drawable="@drawable/textfield_activated_holo_dark" android:state_selected= "true"/>  
+    <item android:drawable="@drawable/textfield_default_holo_light" />  
+  
+</selector>  
