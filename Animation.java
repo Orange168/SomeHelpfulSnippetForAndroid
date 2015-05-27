@@ -83,7 +83,7 @@
                 primaryColor : colorAnimator.getAnimatedValue(), primaryDarkColor);
         colorAnimator.start();
         
-advancedSample001 customized Propertyass
+//advancedSample001 customized Propertyass
 MutableForegroundColorSpan.java
 
 import android.graphics.Color;
@@ -169,3 +169,28 @@ WordPosition wordPosition = getWordPosition(mBaconIpsum);
    objectAnimator.setInterpolator(mSmoothInterpolator);
    objectAnimator.setDuration(800);
    objectAnimator.start();
+   
+   // sample02  
+    /**
+     * change the activity alpha 
+     *   dimBackground(1.0f,0.5f);  Window darken
+     *   dimBackground(0.5f,1.0f);  Windwo lighten
+     * @param from>=0&&from<=1.0f
+     * @param to>=0&&to<=1.0f
+     * 
+     * */
+   private void dimBackground(final float from, final float to) {
+        final Window window = getWindow();
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);
+        valueAnimator.setDuration(500);
+        valueAnimator.addUpdateListener(new AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.alpha = (Float) animation.getAnimatedValue();
+                window.setAttributes(params);
+            }
+        });
+
+        valueAnimator.start();
+    }
