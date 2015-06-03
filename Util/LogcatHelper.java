@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import android.content.Context;
 import android.util.Log;
 
-/**
+/**usage: LogcatHelper.getInstance(this).start();
  * log日志统计保存
  */
 
