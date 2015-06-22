@@ -32,4 +32,11 @@ public class DisplayUtil {
         Log.e(TAG + "getDefaultDisplay", "screenWidth=" + screenWidth + "; screenHeight=" + screenHeight);
         Log.e(TAG + "getDefaultDisplay", "density=" + density + "; densityDpi=" + densityDpi);
     }
+    public static void getViewCoordinate(View v, Context cxt){
+    	DisplayMetrics metrics = cxt.getResources().getDisplayMetrics();
+        Log.i(TAG, "density=" + metrics.density + "height="+metrics.heightPixels  +
+                    "width=" + metrics.widthPixels) ;
+        Log.i(TAG, "left = " + v.getLeft() +"\t\tright" + v.getRight() +
+                            "\n top" + v.getTop()+ "\t\tbottom" + v.getBottom() );
+    }
 }
