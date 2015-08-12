@@ -1,7 +1,7 @@
 # Built application files
 *.apk
 *.ap_
-.DS_Store
+*.DS_Store
 .idea/
 # Files for the Dalvik VM
 *.dex
@@ -27,3 +27,6 @@ proguard/
 # android studio configration file
 *.iml
 import-summary.txt
+
+#log 
+*.log
