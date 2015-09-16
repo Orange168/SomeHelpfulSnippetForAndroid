@@ -1,0 +1,26 @@
+1. styles.xml
+<resources>  
+  <style name="Transparent">  
+    <item name="android:windowBackground">@color/transparent_background</item>  
+    <item name="android:windowNoTitle">true</item>  
+    <item name="android:windowIsTranslucent">true</item>     
+    <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>  
+  </style>  
+</resources>  
+
+2.color.xml
+<?xml version="1.0" encoding="utf-8"?>  
+<resources>  
+  <!--#5000000前两位是透明的效果参数从00&#45;&#45;99（透明&#45;&#45;不怎么透明）-->
+    <color name="transparent_background">#50000000</color>  
+</resources>
+
+3.Manifest.xml
+<activity android:name=".TransparentActivity" android:theme="@style/Transparent">  
+4.Java
+
+public void onCreate(Bundle savedInstanceState) {   
+        super.onCreate(savedInstanceState);   
+        setTheme(R.style.Transparent);    
+    
+}  
