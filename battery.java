@@ -1,5 +1,5 @@
 
-
+//from http://www.jb51.net/article/51560.htm
 IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 Intent batteryStatus = context.registerReceiver(null, ifilter);
 
