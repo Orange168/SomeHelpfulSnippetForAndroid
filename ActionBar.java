@@ -1,3 +1,4 @@
+//20151023 timesample by edward.D.lin
 //actionbarcompat 
 //come from Android 20ui com.example.android.actionbarcompat.basic
 @Override
