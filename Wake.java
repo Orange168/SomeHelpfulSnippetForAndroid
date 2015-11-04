@@ -1,4 +1,5 @@
 // wakeup lock  don't light up screen 
+
 mWakeUpLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK , "CALL_SERVICE" + "#"+ getClass().getName());
 if (mWakeUpLock.isHeld())  mWakeUpLock.release();
 
