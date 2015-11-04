@@ -68,3 +68,11 @@
             return -1;
         }
     }
+    
+    	public String getFreeMemory(){
+		ActivityManager am = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		MemoryInfo mi = new MemoryInfo();
+		am.getMemoryInfo(mi);
+		return Formatter.formatFileSize(context, mi.availMem);
+	}

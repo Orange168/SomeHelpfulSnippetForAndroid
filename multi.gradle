@@ -1,0 +1,92 @@
+import org.apache.commons.compress.utils.IOUtils
+import org.objectweb.asm.*
+
+import java.util.jar.JarEntry
+import java.util.jar.JarFile
+import java.util.jar.JarOutputStream
+import java.util.zip.ZipEntry
+
+ext {
+    dpPackagePrefix = 'com/dianping/'
+    libDrawableClass = 'com/dianping/nova/R\$drawable.class'
+}
+
+byte[] unifyR(InputStream inputStream, String rootPackagePrefix) {
+    ClassReader cr = new ClassReader(inputStream);
+    ClassWriter cw = new ClassWriter(cr, 0);
+    ClassVisitor cv = new ClassVisitor(Opcodes.ASM4, cw) {
+        @Override
+        public MethodVisitor visitMethod(int access, String name, String desc,
+                                         String signature, String[] exceptions) {
+            MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
+            mv = new MethodVisitor(Opcodes.ASM4, mv) {
+                @Override
+                void visitFieldInsn(int opcode, String owner, String fName, String fDesc) {
+                    if (owner.contains(dpPackagePrefix) && owner.contains("R\$") && !owner.contains(rootPackagePrefix)) {
+                        super.visitFieldInsn(opcode, rootPackagePrefix + "R\$" + owner.substring(owner.indexOf("R\$") + 2), fName, fDesc);
+                    } else {
+                        super.visitFieldInsn(opcode, owner, fName, fDesc);
+                    }
+                }
+            }
+            return mv;
+        }
+
+    };
+    cr.accept(cv, 0);
+    return cw.toByteArray();
+}
+
+afterEvaluate {
+    def manifestFile = android.sourceSets.main.manifest.srcFile
+    def packageName = new XmlParser().parse(manifestFile).attribute('package')
+    def rootPackagePrefix = packageName.replace('.', '/') + '/'
+    println packageName
+    android.applicationVariants.each { variant ->
+        def dx = tasks.findByName("dex${variant.name.capitalize()}")
+        def unifyRImport = "unifyRImport${variant.name.capitalize()}"
+        task(unifyRImport) << {
+            Set<File> inputFiles = dx.inputs.files.files
+            inputFiles.each {
+                if (it.name.endsWith(".jar")) {
+                    println it
+                    JarFile jarFile = new JarFile(it);
+                    Enumeration enumeration = jarFile.entries();
+                    File tmpFile = new File(it.getParent() + File.separator + "classes.jar.tmp");
+                    JarOutputStream jarOutputStream = new JarOutputStream(new FileOutputStream(tmpFile));
+
+
+                    while (enumeration.hasMoreElements()) {
+                        JarEntry jarEntry = (JarEntry) enumeration.nextElement();
+                        String entryName = jarEntry.getName();
+                        ZipEntry zipEntry = new ZipEntry(entryName);
+
+                        InputStream inputStream = jarFile.getInputStream(jarEntry);
+                        if (entryName.startsWith(dpPackagePrefix) && entryName.endsWith(".class")) {
+                            if (!entryName.contains("R\$")) {
+                                jarOutputStream.putNextEntry(zipEntry);
+                                jarOutputStream.write(unifyR(inputStream, rootPackagePrefix));
+                            } else {
+                                //NovaLib中R$drawable有被反射使用，不删除
+                                if (entryName.startsWith(rootPackagePrefix) || entryName.equals(libDrawableClass)) {
+                                    jarOutputStream.putNextEntry(zipEntry);
+                                    jarOutputStream.write(IOUtils.toByteArray(inputStream));
+                                }
+                            }
+                        } else {
+                            jarOutputStream.putNextEntry(zipEntry);
+                            jarOutputStream.write(IOUtils.toByteArray(inputStream));
+                        }
+                        jarOutputStream.closeEntry();
+                    }
+                    jarOutputStream.close();
+                    jarFile.close();
+                    tmpFile.renameTo(it);
+                }
+            }
+        }
+
+        tasks.findByName(unifyRImport).dependsOn dx.taskDependencies.getDependencies(dx)
+        dx.dependsOn tasks.findByName(unifyRImport)
+    }
+}

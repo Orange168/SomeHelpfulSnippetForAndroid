@@ -1,4 +1,4 @@
-//home key broadcast
+////home key broadcast
         intentFilter.addAction("android.intent.action.CLOSE_SYSTEM_DIALOGS");
 
     private static final String SYSTEM_DIALOG_REASON_KEY = "reason";
