@@ -32,7 +32,37 @@ import com.anl.phone.wxb.R;
  * @date Dec 03, 2013
  * @since v1.0
  */
+    // <declare-styleable name="SlideView">
+    //     <attr name="maskText" format="string" />
+    //     <attr name="maskTextSize" format="dimension" />
+    //     <attr name="maskTextMarginLeft" format="dimension" />
+    //     <attr name="maskTextMarginTop" format="dimension" />
+    //     <attr name="slider" format="reference" />
+    //     <attr name="slider_press" format="reference" />
+    //     <attr name="sliderMarginLeft" format="dimension" />
+    //     <attr name="sliderMarginTop" format="dimension" />
+    //     <attr name="slidableLength" format="dimension" />
+    //     <attr name="effectiveLength" format="dimension" />
+    //     <attr name="effectiveVelocity" format="dimension" />
+    // </declare-styleable>
 
+    // <com.anl.phone.wxb.widgets.SlideView
+    //     android:id="@+id/slider"
+    //     android:layout_width="320dp"
+    //     android:layout_height="60dp"
+    //     android:background="@drawable/slide_button_bg"
+    //     slider:maskText="拨打电话"
+    //     slider:maskTextSize="18sp"
+    //     slider:maskTextMarginLeft="210dp"
+    //     slider:maskTextMarginTop="38dp"
+    //     slider:slider="@drawable/slide_button_normal"
+    //     slider:slider_press="@drawable/slide_button_press"
+    //     slider:sliderMarginLeft="2dp"
+    //     slider:sliderMarginTop="2dp"
+    //     slider:slidableLength="228dp"
+    //     slider:effectiveLength="190dp"
+    //     slider:effectiveVelocity="1300dp"
+    //     />
 public class SlideView extends View {
 
     public interface SlideListener {
