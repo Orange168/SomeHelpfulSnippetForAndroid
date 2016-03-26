@@ -1,3 +1,4 @@
+// http://blog.csdn.net/infoworld/article/details/43925667
 public class ByteUtils {
 
 	private int size;
