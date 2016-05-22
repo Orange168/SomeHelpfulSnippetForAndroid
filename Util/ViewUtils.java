@@ -91,4 +91,17 @@ public class InputTxtFilter{
 
         return false;
     }
+    
+    /**
+     * 改变status bar 颜色above 21 LOLLIPOP 
+     */
+    public static void setStatusBarColor(Context mContext, int id) {
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = ((AppCompatActivity)mContext).getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(mContext, id));
+        }
+    }
 }
