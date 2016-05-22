@@ -104,4 +104,33 @@ public class InputTxtFilter{
             window.setStatusBarColor(ContextCompat.getColor(mContext, id));
         }
     }
+    
+    /**
+     * 
+     */
+      public static void showKeyboard(final View view,Context mContext) {
+        view.requestFocus();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager keyboard = (InputMethodManager)
+                        mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                keyboard.showSoftInput(view, 0);
+            }
+        }, 400);
+    }
+    
+    public static void hideKeyboard(final View view,Activity mActivity) {
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mActivity.getCurrentFocus() != null) {
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+        }, 400);
+    }
+
 }
