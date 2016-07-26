@@ -9,8 +9,24 @@ public class InputTxtFilter{
         ,'￥','￡','‖','〖','《','「','》','〗','】','｝','〕','』','”','）','！','；','—'};
 
     private InputTxtFilter( ){
-
     }
+    
+       /**
+    * dp2px
+    */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+    * px2dp
+    */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+    
 
     public static void inputFilter( final Context context, final EditText editText, final int type, final int inputLimit){
         InputFilter[] filters = new InputFilter[1];
