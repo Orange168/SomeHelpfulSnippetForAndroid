@@ -1,3 +1,6 @@
 //gradle seting proxy in Android studio
 In Android Studio -> Preferences -> Gradle
 Gradle VM Options -Dhttp.proxyHost=www.somehost.org -Dhttp.proxyPort=8080
+
+
+ddddd
